@@ -90,8 +90,8 @@ if st.sidebar.button("🔍 Tampilkan Visualisasi"):
     valid_str = valid_dt.strftime("%HUTC %a %d %b %Y")
     tstr = f"t+{forecast_hour:03d}"
 
-    ax.set_title(f"{label} - Valid {valid_str}", loc="left", fontsize=10, fontweight="bold")
-    ax.set_title(f"GFS {tstr}", loc="right", fontsize=10, fontweight="bold")
+    ax.set_title(f"{label} - Valid {valid_str}", loc="left", fontsize=8, fontweight="bold")
+    ax.set_title(f"GFS {tstr}", loc="right", fontsize=8, fontweight="bold")
 
     if is_contour:
         cs = ax.contour(var.lon, var.lat, var.values, levels=15, colors='black',
