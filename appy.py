@@ -7,7 +7,10 @@ import pandas as pd
 from datetime import datetime
 
 st.set_page_config(page_title="Prakiraan Cuaca Sulawesi Selatan", layout="wide")
+
+# Judul Utama
 st.title("🌤️ Prakiraan Cuaca Wilayah Sulawesi Selatan")
+st.markdown("### Ibnu Khaldun_MET 8 TB_14.24.006")  # 👈 Identitas ditambahkan di sini
 st.header("Data Realtime GFS via NOMADS NOAA")
 
 @st.cache_data
