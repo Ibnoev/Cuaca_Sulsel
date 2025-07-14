@@ -8,9 +8,9 @@ from datetime import datetime
 
 st.set_page_config(page_title="Prakiraan Cuaca Sulawesi Selatan", layout="wide")
 
-# Judul Utama
+# Judul Aplikasi dan Nama
 st.title("🌤️ Prakiraan Cuaca Wilayah Sulawesi Selatan")
-st.markdown("### Ibnu Khaldun_MET 8 TB_14.24.006")  # 👈 Identitas ditambahkan di sini
+st.markdown("### Ibnu Khaldun_MET 8 TB_14.24.006")
 st.header("Data Realtime GFS via NOMADS NOAA")
 
 @st.cache_data
@@ -90,9 +90,14 @@ if st.sidebar.button("🔍 Tampilkan Visualisasi"):
     valid_str = valid_dt.strftime("%HUTC %a %d %b %Y")
     tstr = f"t+{forecast_hour:03d}"
 
-    ax.set_title(f"{label} - Valid {valid_str}", loc="left", fontsize=10, fontweight="bold")
-    ax.set_title(f"GFS {tstr}", loc="right", fontsize=10, fontweight="bold")
+    # Judul utama & teks bawah peta
+    fig.suptitle(f"{label}", fontsize=12, fontweight="bold")
+    ax.text(0.01, -0.08, f"Valid: {valid_str}", transform=ax.transAxes,
+            fontsize=9, ha='left', va='top')
+    ax.text(0.99, -0.08, f"GFS {tstr}", transform=ax.transAxes,
+            fontsize=9, ha='right', va='top')
 
+    # Plot data
     if is_contour:
         cs = ax.contour(var.lon, var.lat, var.values, levels=15, colors='black',
                         linewidths=0.8, transform=ccrs.PlateCarree())
@@ -108,9 +113,11 @@ if st.sidebar.button("🔍 Tampilkan Visualisasi"):
                       u.values[::3, ::3], v.values[::3, ::3],
                       transform=ccrs.PlateCarree(), scale=700, width=0.002, color='black')
 
+    # Tambahkan fitur peta
     ax.coastlines(resolution='10m', linewidth=0.8)
     ax.add_feature(cfeature.BORDERS, linestyle=':')
     ax.add_feature(cfeature.LAND, facecolor='lightgray')
     ax.add_feature(cfeature.LAKES, facecolor='lightblue', edgecolor='k', linewidth=0.3)
 
+    # Tampilkan di Streamlit
     st.pyplot(fig)
